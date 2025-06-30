@@ -9,57 +9,64 @@
 <body>
   <div class="container">
     <h1>Kalkulator Normy</h1>
+    <h2 style="font-style: italic;">Garbatek🫠</h2>
 
-  <!-- Tabela ODPISY -->
-  <table id="odpisy-table">
-    <tbody>
-      <tr>
-        <th>Przezbrojenia</th>
-        <td class="przezbrojenia-row">
-          <input type="number" class="numeric-input" min="10" step="5" placeholder="Minuty" />
-          <button class="plus" onclick="addPrzezbrojenie()">+</button>
-        </td>
-      </tr>
-      <tr>
-        <th width="25%">Brak obsady</th>
-        <td class="brak-obsady-row">
-          <input type="text" placeholder="Pracownik" />
-          <input type="number" class="numeric-input" min="15" step="15" placeholder="Minuty" />
-          <button class="plus" onclick="addBrakObsady()">+</button>
-        </td>
-      </tr>
-      <tr>
-        <th colspan="2">Odpisy</th>
-      </tr>
-    </tbody>
-  </table>
-
-  <button id="add-odpis-btn" class="add-row" onclick="addOdpis()">Dodaj odpis</button>
-
-  <!-- Tabela główna -->
-    <table id="data-table">
-      <thead>
+    <!-- Tabela ODPISY -->
+    <table id="odpisy-table">
+      <tbody>
         <tr>
-          <th width="150px">Index</th>
-          <th width="75px">Ilość Sztuk</th>
-          <th width="75px">Ilość Braków</th>
-          <th class="responsive-th" data-short="ST.10/20">Krzyżak/Osłona<br/>ST.10/20</th>
-          <th class="responsive-th" data-short="ST.30">Przegub<br/>ST.30</th>
-          <th class="responsive-th" data-short="ST.40">Tulipan/CG<br/>ST.40</th>
-          <th class="responsive-th" data-short="ST.50">Pion<br/>ST.50</th>
+          <th style="width: 20%">
+            Przezbrojenia<br/>
+            <span id="suma-przezbrojenia"></span>
+            <button class="plus" onclick="dodajPrzezbrojenie()">+</button>
+          </th>
+          <td class="przezbrojenia-row">
+          </td>
         </tr>
-      </thead>
-      <tbody id="table-body">
-        <!-- Wiersze będą generowane dynamicznie -->
+        <tr>
+          <th style="width: 20%">
+            Brak obsady<br/>
+            <span id="suma-brak-obsady"></span>
+            <button class="plus" onclick="dodajBrakObsady()">+</button>
+          </th>
+          <td class="brak-obsady-row">
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2">
+            Odpisy
+            <button class="plus" onclick="dodajOdpis()">+</button>
+            <span id="suma-odpisy"></span>
+          </th>
+        </tr>
       </tbody>
     </table>
 
-    <div class="toolbar">
-      <button id="add-row" class="add-row">Dodaj index</button>
+    <!-- Tabela główna -->
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th width="25%">
+            Index
+            <button class="plus" onclick="dodajIndex()">+</button>
+          </th>
+          <th width="10%">Ile na warstwę</th>
+          <th width="11%">Ilość Sztuk</th>
+          <th width="10%">Braki Łącznie</th>
+          <th width="11%" class="responsive-th" data-short="ST. 10/20">Krzyżak/Osłona<br/>ST. 10/20</th>
+          <th width="11%" class="responsive-th" data-short="ST. 30">Przegub<br/>ST. 30</th>
+          <th width="11%" class="responsive-th" data-short="ST. 40">Tulipan/CG<br/>ST. 40</th>
+          <th width="11%" class="responsive-th" data-short="ST. 50">Pion<br/>ST. 50</th>
+        </tr>
+      </thead>
+      <tbody id="table-body"></tbody>
+    </table>
 
+    <div class="toolbar">
       <div class="controls">
         <label for="norma">Norma:</label>
-        <select id="norma">
+        <select id="norma" width="5%">
+          <option value="" disabled>Wybierz</option>
           <option value="550">550</option>
           <option value="560" selected>560</option>
           <option value="570">570</option>
@@ -70,6 +77,7 @@
     </div>
 
     <div id="output"></div>
+    <div id="warning" style="margin-top: 0"></div>
   </div>
 
   <script src="script.js"></script>
