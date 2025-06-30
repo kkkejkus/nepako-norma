@@ -37,8 +37,10 @@ th {
 }
 
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+select {
   width: 100%;
+  height: 2rem;
   padding: 6px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -60,14 +62,7 @@ input[type="number"] {
   text-align: center;
 }
 
-select {
-  padding: 8px 16px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-#output {
+#output, #warning {
   margin-top: 20px;
   font-size: 18px;
   font-weight: bold;
@@ -108,6 +103,11 @@ button.plus:hover {
   background-color: #e0e5e9;
 }
 
+span#suma-brak-obsady, span#suma-przezbrojenia {
+  font-size: 14px;
+  font-style: italic;
+}
+
 td.przezbrojenia-row input[type="number"],td.brak-obsady-row input[type="number"] {
   width: 75px;
   margin: 0 4px;
@@ -115,7 +115,32 @@ td.przezbrojenia-row input[type="number"],td.brak-obsady-row input[type="number"
 }
 
 td.brak-obsady-row input[type="text"] {
-  width: 125px;
+  width: 100px;
   margin-right: -4px;
   box-sizing: border-box;
+}
+
+@media (max-width: 700px) {
+  input[type="text"],
+  input[type="number"],
+  select,
+  th,
+  td {
+    font-size: 12px;
+  }
+  span#suma-brak-obsady, span#suma-przezbrojenia {
+    font-size: 11px;
+  }
+}
+
+select option[value="6"] {
+  background: #acacac;
+}
+
+select option[value="8"] {
+  background: #0f7431;
+}
+
+select option[value="9"] {
+  background: #b41780;
 }

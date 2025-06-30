@@ -1,7 +1,6 @@
 const normaSelect = document.getElementById('norma');
 const tableBody = document.getElementById('table-body');
 const output = document.getElementById('output');
-const addRowBtn = document.getElementById('add-row');
 
 // Wagi dla poszczególnych kolumn braków
 const wagi = {
@@ -21,12 +20,7 @@ function updateTableHeaders() {
     }
 
     if (windowWidth < 900) {
-      if (th.dataset.short) {
-        th.innerHTML = th.dataset.short;
-      } else {
-        // Jeśli brak data-short, pokaż oryginał
-        th.innerHTML = th.dataset.full;
-      }
+      th.innerHTML = th.dataset.short || th.dataset.full;
     } else {
       th.innerHTML = th.dataset.full;
     }
@@ -36,21 +30,27 @@ function updateTableHeaders() {
 window.addEventListener('DOMContentLoaded', updateTableHeaders);
 window.addEventListener('resize', updateTableHeaders);
 
-// Dodaje nowe pole do przezbrojeń
-function addPrzezbrojenie() {
+function dodajPrzezbrojenie() {
   const container = document.querySelector('.przezbrojenia-row');
+  const inputs = container.querySelectorAll('input[type="number"]');
+  if (inputs.length >= 8) return; // max 8
+
   const input = document.createElement('input');
   input.type = 'number';
   input.className = 'numeric-input';
   input.min = '10';
   input.step = '5';
-  inputNumber.placeholder = 'Minuty';
-  container.insertBefore(input, container.lastElementChild); // przed przyciskiem +
+  input.placeholder = 'Minuty';
+
+  input.addEventListener('input', aktualizuj);
+  container.lastElementChild.after(input);
 }
 
-// Dodaje nową parę inputów do braku obsady
-function addBrakObsady() {
+function dodajBrakObsady() {
   const container = document.querySelector('.brak-obsady-row');
+  const inputs = container.querySelectorAll('input[type="number"]');
+  if (inputs.length >= 4) return; // max 4
+
   const inputText = document.createElement('input');
   inputText.type = 'text';
   inputText.placeholder = 'Pracownik';
@@ -62,15 +62,15 @@ function addBrakObsady() {
   inputNumber.step = '5';
   inputNumber.placeholder = 'Minuty';
 
-  container.insertBefore(inputText, container.lastElementChild);
-  container.insertBefore(inputNumber, container.lastElementChild);
+  inputNumber.addEventListener('input', aktualizuj);
+
+  container.lastElementChild.after(inputText);
+  inputText.after(inputNumber);
 }
 
-// Dodaje nowy wiersz odpisu (liczba + tekst)
-function addOdpis() {
+function dodajOdpis() {
   const table = document.getElementById('odpisy-table');
   const row = document.createElement('tr');
-
   const td = document.createElement('td');
   td.colSpan = 2;
 
@@ -84,7 +84,7 @@ function addOdpis() {
 
   const inputText = document.createElement('input');
   inputText.type = 'text';
-  inputText.placeholder = 'Opisz co się wydarzyło przez ten czas...';
+  inputText.placeholder = 'Opisz co wydarzyło się przez ten czas...';
   inputText.style.width = '90%';
   inputText.style.marginLeft = '10px';
 
@@ -95,10 +95,17 @@ function addOdpis() {
   table.querySelector('tbody').appendChild(row);
 }
 
-function utworzWiersz(index = '') {
+function dodajIndex(index = '') {
   const tr = document.createElement('tr');
   tr.innerHTML = `
     <td><input type="text" placeholder="Numer indeksu" value="${index}" /></td>
+    <td>
+      <select class="warstwa-select">
+        <option value="6">6</option>
+        <option value="8" selected>8</option>
+        <option value="9">9</option>
+      </select>
+    </td>
     <td><input type="number" class="sztuki" value="0" min="0" /></td>
     <td class="suma-brakow">0</td>
     <td><input type="number" class="brak krzyzak" value="0" min="0" /></td>
@@ -121,7 +128,24 @@ function aktualizuj() {
   let sumaWymagana = 0;
   let sumaZrobiona = 0;
 
-  // 1. Oblicz błędy ważone ze wszystkich rzędów danych
+
+  document.querySelectorAll('.warstwa-select').forEach(select => {
+    function ustawKolor() {
+      const val = select.value;
+      let kolor = {
+        '6': '#acacac',
+        '8': '#0f7431',
+        '9': '#b41780'
+      }[val] || 'white';
+
+      select.style.backgroundColor = kolor;
+    }
+
+    ustawKolor(); // Początkowo
+    select.addEventListener('change', ustawKolor);
+  });
+
+  // Sumy braków
   document.querySelectorAll('#table-body tr').forEach(row => {
     const sztuki = parseInt(row.querySelector('.sztuki')?.value) || 0;
     const brakKrzyzak = parseInt(row.querySelector('.krzyzak')?.value) || 0;
@@ -145,35 +169,76 @@ function aktualizuj() {
     sumaZrobiona += sztuki;
   });
 
-  // 2. Oblicz dodatkowe minuty odpisów
-  let sumaOdpisowMinuty = 0;
-  const odpisInputs = document.querySelectorAll('.numeric-input');
-  odpisInputs.forEach(input => {
+  // Suma przezbrojeń
+  let sumaPrzezbrojenia = 0;
+  document.querySelectorAll('.przezbrojenia-row input').forEach(input => {
     const val = parseFloat(input.value);
-    if (!isNaN(val)) {
-      sumaOdpisowMinuty += val;
-    }
+    if (!isNaN(val)) sumaPrzezbrojenia += val;
+  });
+  document.getElementById('suma-przezbrojenia').textContent = `Łącznie: ${sumaPrzezbrojenia}min`;
+
+  // Suma braków obsady
+  let sumaBrakObsady = 0;
+  document.querySelectorAll('.brak-obsady-row input[type="number"]').forEach(input => {
+    const val = parseFloat(input.value);
+    if (!isNaN(val)) sumaBrakObsady += val;
+  });
+  document.getElementById('suma-brak-obsady').textContent = `Łącznie: ${sumaBrakObsady}min`;
+
+  // Suma wszystkich odpisów (w tym przezbrojeń i braków obsady)
+  let sumaOdpisowMinuty = 0;
+  document.querySelectorAll('.numeric-input').forEach(input => {
+    const val = parseFloat(input.value);
+    if (!isNaN(val)) sumaOdpisowMinuty += val;
   });
 
   const sztukiDoOdjeciaZaOdpisy = sumaOdpisowMinuty * 1.3;
-
-  // 3. Oblicz całkowitą wymaganą ilość
   const norma = parseInt(normaSelect.value);
   sumaWymagana = norma - sumaWazonaBrakow - sztukiDoOdjeciaZaOdpisy;
 
-  // 4. Wyświetlenie komunikatu
+  const warning = document.getElementById('warning');
+  warning.textContent = ''; // czyścimy wcześniej
+
   if (sumaZrobiona < sumaWymagana) {
-    output.textContent = `Powinieneś zrobić ${Math.round(sumaWymagana)} zamiast ${sumaZrobiona}!`;
-    output.style.color = 'crimson';
+    const wymagana = Math.round(sumaWymagana);
+    const naWarstweInputs = document.querySelectorAll('.warstwa-select');
+    const naWarstwe = parseInt(naWarstweInputs[naWarstweInputs.length - 1]?.value) || 1;
+
+    let dol, gora;
+
+    if (wymagana % naWarstwe === 0) {
+      gora = wymagana;
+      dol = wymagana - naWarstwe;
+    } else {
+      dol = wymagana - (wymagana % naWarstwe);
+      gora = dol + naWarstwe;
+    }
+
+    const roznica = wymagana - sumaZrobiona;
+    const kolor = roznica <= 20 ? 'orange' : 'crimson';
+
+    output.textContent = `Powinieneś zrobić ${wymagana} (± ${dol}/${gora}) zamiast ${sumaZrobiona}!`;
+    output.style.color = kolor;
   } else {
-    output.textContent = `Zrobione: ${sumaZrobiona}, wymagane: ${Math.round(sumaWymagana)}.`;
+    const wymagana = Math.round(sumaWymagana);
+    const roznica = sumaZrobiona - wymagana;
+
+    output.textContent = `Zrobione: ${sumaZrobiona}, wymagane: ${wymagana}.`;
     output.style.color = 'green';
+
+    if (roznica > 10) {
+      warning.textContent = 'Nie zawyżaj normy!!!';
+      warning.style.color = 'orange';
+      if (roznica > 20) {
+        warning.style.color = 'crimson';
+      }
+    }
   }
 }
 
-addRowBtn.addEventListener('click', () => utworzWiersz(''));
-
 document.addEventListener('change', aktualizuj);
 
-addOdpis();
-utworzWiersz();
+window.addEventListener('DOMContentLoaded', () => {
+  dodajOdpis();
+  dodajIndex();
+});
