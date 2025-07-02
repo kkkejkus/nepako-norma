@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kalkulator Normy</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="script.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>Kalkulator Normy</h1>
-    <h2 style="font-style: italic;">Garbatek🫠</h2>
+    <h2 style="letter-spacing: 4px;">"GARBATEK🫠"</h2>
 
     <!-- Tabela ODPISY -->
     <table id="odpisy-table">
@@ -17,46 +18,26 @@
         <tr>
           <th style="width: 20%">
             Przezbrojenia<br/>
-<<<<<<< HEAD
             <span id="suma-przezbrojenia"></span>
             <button class="plus" onclick="dodajPrzezbrojenie()">+</button>
           </th>
           <td class="przezbrojenia-row">
-=======
-            <span id="suma-przezbrojenia">Łącznie: 0min</span>
-            <button class="plus" onclick="dodajPrzezbrojenie()">+</button>
-          </th>
-          <td class="przezbrojenia-row">
-            <input type="number" class="numeric-input" min="10" step="5" placeholder="Minuty" />
->>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
           </td>
         </tr>
         <tr>
           <th style="width: 20%">
             Brak obsady<br/>
-<<<<<<< HEAD
             <span id="suma-brak-obsady"></span>
             <button class="plus" onclick="dodajBrakObsady()">+</button>
           </th>
           <td class="brak-obsady-row">
-=======
-            <span id="suma-brak-obsady">Łącznie: 0min</span>
-            <button class="plus" onclick="dodajBrakObsady()">+</button>
-          </th>
-          <td class="brak-obsady-row">
-            <input type="text" placeholder="Pracownik" />
-            <input type="number" class="numeric-input" min="15" step="15" placeholder="Minuty" />
->>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
           </td>
         </tr>
         <tr>
           <th colspan="2">
             Odpisy
             <button class="plus" onclick="dodajOdpis()">+</button>
-<<<<<<< HEAD
             <span id="suma-odpisy"></span>
-=======
->>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
           </th>
         </tr>
       </tbody>
@@ -85,7 +66,7 @@
     <div class="toolbar">
       <div class="controls">
         <label for="norma">Norma:</label>
-        <select id="norma" width="5%">
+        <select id="norma" style="width:50% !important">
           <option value="" disabled>Wybierz</option>
           <option value="550">550</option>
           <option value="560" selected>560</option>
@@ -99,7 +80,5 @@
     <div id="output"></div>
     <div id="warning" style="margin-top: 0"></div>
   </div>
-
-  <script src="script.js"></script>
 </body>
 </html>
