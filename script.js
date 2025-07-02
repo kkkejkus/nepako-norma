@@ -98,9 +98,13 @@ function dodajPrzezbrojenie() {
   input.placeholder = 'Minuty';
 
   input.addEventListener('input', aktualizuj);
+<<<<<<< HEAD
   
   if (container.children.length <= 0) container.insertBefore(input, container.lastElementChild);
   else container.lastElementChild.after(input);
+=======
+  container.lastElementChild.after(input);
+>>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
 }
 
 function dodajBrakObsady() {
@@ -123,8 +127,12 @@ function dodajBrakObsady() {
 
   inputNumber.addEventListener('input', aktualizuj);
 
+<<<<<<< HEAD
   if (container.children.length <= 1) container.insertBefore(inputText, container.lastElementChild);
   else container.lastElementChild.after(inputText);
+=======
+  container.lastElementChild.after(inputText);
+>>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
   inputText.after(inputNumber);
 }
 
@@ -134,6 +142,7 @@ function dodajOdpis() {
   const row = document.createElement('tr');
   const td = document.createElement('td');
   td.colSpan = 2;
+<<<<<<< HEAD
   td.className = 'nbt';
   td.innerHTML = `
     <div class="input-wrapper">
@@ -177,6 +186,25 @@ function dodajOdpis() {
     <span class="bin" onclick="usunWiersz(event)">🗑️</span>
     </div>
   `;
+=======
+
+  const inputNumber = document.createElement('input');
+  inputNumber.type = 'number';
+  inputNumber.className = 'numeric-input';
+  inputNumber.min = '10';
+  inputNumber.step = '5';
+  inputNumber.placeholder = 'Minuty';
+  inputNumber.style.width = '8%';
+
+  const inputText = document.createElement('input');
+  inputText.type = 'text';
+  inputText.placeholder = 'Opisz co wydarzyło się przez ten czas...';
+  inputText.style.width = '90%';
+  inputText.style.marginLeft = '10px';
+
+  td.appendChild(inputNumber);
+  td.appendChild(inputText);
+>>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
   row.appendChild(td);
 
   const newSelect = td.querySelector('select.odpis-select');
@@ -203,6 +231,7 @@ function dodajOdpis() {
   tbody.appendChild(row);
 }
 
+<<<<<<< HEAD
 function dodajKlikUsuwaniaWiersza(tr) {
   const komorki = tr.querySelectorAll('td');
 
@@ -229,18 +258,34 @@ function dodajIndex(index = '') {
   tr.innerHTML = `
     <td class="nbr nbt"><div class="input-wrapper"><input type="text" placeholder="Numer indeksu" value="${index}" /><span class="bin" onclick="usunWiersz(event)">🗑️</span></div></td>
     <td class="nbl nbr nbt">
+=======
+function dodajIndex(index = '') {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><input type="text" placeholder="Numer indeksu" value="${index}" /></td>
+    <td>
+>>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
       <select class="warstwa-select">
         <option value="6">6</option>
         <option value="8" selected>8</option>
         <option value="9">9</option>
       </select>
     </td>
+<<<<<<< HEAD
     <td class="nbl nbr nbt"><input type="number" class="sztuki" value="0" min="0" /></td>
     <td class="nbl nbr nbt suma-brakow">0</td>
     <td class="nbl nbr nbt"><input type="number" class="brak krzyzak" value="0" min="0" /></td>
     <td class="nbl nbr nbt"><input type="number" class="brak przegub" value="0" min="0" /></td>
     <td class="nbl nbr nbt"><input type="number" class="brak tulipan" value="0" min="0" /></td>
     <td class="nbl nbt"><input type="number" class="brak pion" value="0" min="0" /></td>
+=======
+    <td><input type="number" class="sztuki" value="0" min="0" /></td>
+    <td class="suma-brakow">0</td>
+    <td><input type="number" class="brak krzyzak" value="0" min="0" /></td>
+    <td><input type="number" class="brak przegub" value="0" min="0" /></td>
+    <td><input type="number" class="brak tulipan" value="0" min="0" /></td>
+    <td><input type="number" class="brak pion" value="0" min="0" /></td>
+>>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
   `;
   tableBody.appendChild(tr);
 
@@ -263,8 +308,13 @@ function aktualizuj() {
       const val = select.value;
       let kolor = {
         '6': '#acacac',
+<<<<<<< HEAD
         '8': '#1da74b',
         '9': '#db2ba0'
+=======
+        '8': '#0f7431',
+        '9': '#b41780'
+>>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
       }[val] || 'white';
 
       select.style.backgroundColor = kolor;
@@ -300,6 +350,7 @@ function aktualizuj() {
 
   // Suma przezbrojeń
   let sumaPrzezbrojenia = 0;
+<<<<<<< HEAD
   let sumaSztPrzezbrojenia = 0;
   document.querySelectorAll('.przezbrojenia-row input').forEach(input => {
     const val = parseFloat(input.value);
@@ -335,6 +386,30 @@ function aktualizuj() {
   const sztukiDoOdjeciaZaOdpisy = sumaOdpisowMinuty * 1.3;
   document.getElementById('suma-odpisy').textContent = `${sumaOdpisowMinuty}min | -${Math.round(sztukiDoOdjeciaZaOdpisy)}szt`;
 
+=======
+  document.querySelectorAll('.przezbrojenia-row input').forEach(input => {
+    const val = parseFloat(input.value);
+    if (!isNaN(val)) sumaPrzezbrojenia += val;
+  });
+  document.getElementById('suma-przezbrojenia').textContent = `Łącznie: ${sumaPrzezbrojenia}min`;
+
+  // Suma braków obsady
+  let sumaBrakObsady = 0;
+  document.querySelectorAll('.brak-obsady-row input[type="number"]').forEach(input => {
+    const val = parseFloat(input.value);
+    if (!isNaN(val)) sumaBrakObsady += val;
+  });
+  document.getElementById('suma-brak-obsady').textContent = `Łącznie: ${sumaBrakObsady}min`;
+
+  // Suma wszystkich odpisów (w tym przezbrojeń i braków obsady)
+  let sumaOdpisowMinuty = 0;
+  document.querySelectorAll('.numeric-input').forEach(input => {
+    const val = parseFloat(input.value);
+    if (!isNaN(val)) sumaOdpisowMinuty += val;
+  });
+
+  const sztukiDoOdjeciaZaOdpisy = sumaOdpisowMinuty * 1.3;
+>>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
   const norma = parseInt(normaSelect.value);
   sumaWymagana = norma - sumaWazonaBrakow - sztukiDoOdjeciaZaOdpisy;
 

@@ -121,6 +121,11 @@ span#suma-brak-obsady, span#suma-przezbrojenia, span#suma-odpisy {
   font-style: italic;
 }
 
+span#suma-brak-obsady, span#suma-przezbrojenia {
+  font-size: 14px;
+  font-style: italic;
+}
+
 td.przezbrojenia-row input[type="number"],td.brak-obsady-row input[type="number"] {
   width: 75px;
   margin: 0 8px 0 0;
@@ -128,7 +133,12 @@ td.przezbrojenia-row input[type="number"],td.brak-obsady-row input[type="number"
 
 td.brak-obsady-row input[type="text"] {
   width: 100px;
+<<<<<<< HEAD
   margin-right: -1px;
+=======
+  margin-right: -4px;
+  box-sizing: border-box;
+>>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
 }
 
 @media (max-width: 700px) {
@@ -139,8 +149,13 @@ td.brak-obsady-row input[type="text"] {
   td {
     font-size: 12px;
   }
+<<<<<<< HEAD
   span#suma-brak-obsady, span#suma-przezbrojenia, span#suma-odpisy {
     font-size: 10px;
+=======
+  span#suma-brak-obsady, span#suma-przezbrojenia {
+    font-size: 11px;
+>>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
   }
 }
 
@@ -149,6 +164,7 @@ select option[value="6"] {
 }
 
 select option[value="8"] {
+<<<<<<< HEAD
   background: #1da74b;
 }
 
@@ -206,4 +222,11 @@ select option[value="9"] {
 
 .br2 {
   border-radius: 0 6px 6px 0 !important;
+=======
+  background: #0f7431;
+}
+
+select option[value="9"] {
+  background: #b41780;
+>>>>>>> e20f88931067f78ae93803f367f3fc432cd96196
 }
