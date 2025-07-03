@@ -193,7 +193,7 @@ td.brak-obsady-row input[type="text"] {
   box-sizing: border-box;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 810px) {
   input[type="text"],
   input[type="number"],
   select,
@@ -203,6 +203,9 @@ td.brak-obsady-row input[type="text"] {
   }
   span#suma-brak-obsady, span#suma-przezbrojenia, span#suma-odpisy {
     font-size: 10px;
+  }
+  #odpisy-table th {
+    width: 80%;
   }
 }
 
