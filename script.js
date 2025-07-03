@@ -1,3 +1,31 @@
+function aktualizujDateGodzineIZmiane() {
+  const teraz = new Date();
+  const godzina = teraz.getHours();
+  const minuta = teraz.getMinutes().toString().padStart(2, '0');
+  const sekunda = teraz.getSeconds().toString().padStart(2, '0');
+  const data = teraz.toLocaleDateString('pl-PL');
+  const godzinaTekst = `${godzina}:${minuta}:${sekunda}`;
+
+  let zmiana;
+  if (godzina >= 6 && godzina < 14) {
+    zmiana = 'I';
+  } else if (godzina >= 14 && godzina < 22) {
+    zmiana = 'II';
+  } else {
+    zmiana = 'III';
+  }
+
+  const dataElem = document.getElementById('data-dzis');
+  const godzinaElem = document.getElementById('godzina-teraz');
+  const zmianaElem = document.getElementById('zmiana');
+
+  if (dataElem && godzinaElem && zmianaElem) {
+    dataElem.textContent = data;
+    godzinaElem.textContent = godzinaTekst;
+    zmianaElem.textContent = `Zmiana ${zmiana}`;
+  }
+}
+
 const wagi = {
   krzyzak: 0.5,
   przegub: 1,
@@ -130,7 +158,7 @@ function dodajOdpis() {
   const row = document.createElement('tr');
   const td = document.createElement('td');
   td.colSpan = 2;
-  td.className = 'nbt';
+  td.className = 'odpisy-row nbt';
   td.innerHTML = `
     <div class="input-wrapper">
     <input 
@@ -204,6 +232,9 @@ function dodajIndex(index = '') {
   const table = document.getElementById('data-table');
   const tableBody = table.querySelector('tbody');
   const ostatniWiersz = tableBody.lastElementChild;
+  const inputs = tableBody.querySelectorAll('input[placeholder="Numer indeksu"]');
+  if (inputs.length >= 9) return; // max 9
+
   if (ostatniWiersz) {
     ostatniWiersz.querySelectorAll('td').forEach(td => {
       td.classList.add('nbb');
@@ -283,6 +314,10 @@ function aktualizuj() {
     sumaZrobiona += sztuki;
   });
 
+  const normaSelect = document.getElementById('norma');
+  const norma = parseInt(normaSelect.value);
+  const normaMnoznik = norma >= 600 ? 1.5 : 1.3;
+
   // Suma przezbrojeń
   let sumaPrzezbrojenia = 0;
   let sumaSztPrzezbrojenia = 0;
@@ -290,7 +325,7 @@ function aktualizuj() {
     const val = parseFloat(input.value);
     if (!isNaN(val)) sumaPrzezbrojenia += val;
   });
-  sumaSztPrzezbrojenia = Math.floor(sumaPrzezbrojenia * 1.3);
+  sumaSztPrzezbrojenia = Math.floor(sumaPrzezbrojenia * normaMnoznik);
   document.getElementById('suma-przezbrojenia').textContent = `${sumaPrzezbrojenia}min | -${sumaSztPrzezbrojenia}szt`;
 
   // Suma braków obsady
@@ -300,25 +335,28 @@ function aktualizuj() {
     const val = parseFloat(input.value);
     if (!isNaN(val)) sumaBrakObsady += val;
   });
-  sumaSztBrakObsady = Math.round(sumaBrakObsady * 1.3 * 0.25);
-  document.getElementById('suma-brak-obsady').textContent = `${sumaBrakObsady}min | -${sumaSztBrakObsady}szt`;
+
+  let wspolczynnikObecnosci = (480 - sumaBrakObsady) / 480;
+  let zmniejszonaNorma = norma * wspolczynnikObecnosci;
+
+  sumaSztBrakObsady = Math.round(0.25 * (norma - zmniejszonaNorma));
+  document.getElementById('suma-brak-obsady').textContent = `¼×${sumaBrakObsady}min | -${sumaSztBrakObsady}szt`;
+
 
   // Suma wszystkich odpisów (w tym przezbrojeń i braków obsady)
   let sumaOdpisowMinuty = 0;
   document.querySelectorAll('.numeric-input').forEach(input => {
     const val = parseFloat(input.value);
     if (!isNaN(val)) {
-      if (input.closest('.brak-obsady-row')) {
-        sumaOdpisowMinuty += val * 0.25;
-      } else sumaOdpisowMinuty += val;
+      if (input.closest('.odpisy-row')) sumaOdpisowMinuty += val;
     }
   });
+  let sztukiDoOdjeciaZaOdpisy = sumaOdpisowMinuty * normaMnoznik;
+  sumaOdpisowMinuty += sumaPrzezbrojenia + (sumaBrakObsady * 0.25);
+  sztukiDoOdjeciaZaOdpisy += sumaSztPrzezbrojenia + sumaSztBrakObsady;
 
-  const sztukiDoOdjeciaZaOdpisy = sumaOdpisowMinuty * 1.3;
   document.getElementById('suma-odpisy').textContent = `${sumaOdpisowMinuty}min | -${Math.round(sztukiDoOdjeciaZaOdpisy)}szt`;
 
-  const normaSelect = document.getElementById('norma');
-  const norma = parseInt(normaSelect.value);
   sumaWymagana = norma - sumaWazonaBrakow - sztukiDoOdjeciaZaOdpisy;
 
   const warning = document.getElementById('warning');
@@ -367,4 +405,6 @@ document.addEventListener('change', aktualizuj);
 window.addEventListener('DOMContentLoaded', () => {
   dodajOdpis();
   dodajIndex();
+  aktualizujDateGodzineIZmiane();
+  setInterval(aktualizujDateGodzineIZmiane, 1000);
 });
