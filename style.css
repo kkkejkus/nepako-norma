@@ -16,10 +16,58 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
-  text-align: center;
+.naglowek-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: -0.5rem 0 0.5rem;
+}
+
+.info-lewa, .info-prawa {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.95rem;
   color: #333;
+  min-width: 100px;
+  margin-bottom: 16px;
+}
+
+#data-dzis {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+#godzina-teraz {
+  font-size: 0.9rem;
+  margin-top: -4px;
+}
+
+#zmiana {
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: right;
+  margin-bottom: 16px;
+}
+
+.naglowki-srodek {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.naglowki-srodek h1 {
   margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+.naglowki-srodek h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  letter-spacing: 4px;
+  color: #555;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 table {
@@ -102,8 +150,8 @@ button.add-row:hover {
   background-color: #e0e5e9;
 }
 
-button.plus {
-  margin: 0 8px;
+button.plus, button.plus:active {
+  margin: 0 0 0 2px;
   padding: 2px 6px;
   font-size: 16px;
   border: none;
@@ -120,6 +168,12 @@ button.plus:hover {
   rotate: 5deg;
   transform: scale(1.05);
   transition: 0.3s ease;
+}
+
+button.plus:active {
+  rotate: -5deg;
+  transform: scale(1.0);
+  transition: 0s ease;
 }
 
 span#suma-brak-obsady, span#suma-przezbrojenia, span#suma-odpisy {
