@@ -170,7 +170,7 @@ function dodajOdpis() {
       placeholder="Minuty" 
       style="width: 8%" 
     />
-    <select class="odpis-select" style="width: 22%; margin-left: -6px; border-radius: 0">
+    <select class="odpis-select" style="width: 27%; margin-left: -6px; border-radius: 0">
       <option disabled selected>Wybierz odpis</option>
       <option></option>
       <option>Awaria</option>
@@ -195,8 +195,8 @@ function dodajOdpis() {
     <input 
       type="text" 
       class="br2" 
-      placeholder="Dodatkowy opis..." 
-      style="width: 70%; margin-left: -6px" 
+      placeholder="Dodatkowa notatka do odpisu..." 
+      style="width: 65%; margin-left: -6px" 
     />
     <span class="bin" onclick="usunWiersz(event)">🗑️</span>
     </div>
