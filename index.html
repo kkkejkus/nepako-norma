@@ -9,26 +9,40 @@
 </head>
 <body>
   <div class="container">
-    <h1>Kalkulator Normy</h1>
-    <h2 style="letter-spacing: 4px;">"GARBATEK🫠"</h2>
+    <!-- NAGŁÓWEK -->
+    <div class="naglowek-flex">
+      <div class="info-lewa">
+        <div id="data-dzis"></div>
+        <div id="godzina-teraz"></div>
+      </div>
+
+      <div class="naglowki-srodek">
+        <h1>Kalkulator Normy</h1>
+        <h2>GARBATEK🫠</h2>
+      </div>
+
+      <div class="info-prawa">
+        <div id="zmiana">Zmiana II</div>
+      </div>
+    </div>
 
     <!-- Tabela ODPISY -->
     <table id="odpisy-table">
       <tbody>
         <tr>
           <th style="width: 20%">
-            Przezbrojenia<br/>
+            Przezbrojenia
+            <button class="plus" onclick="dodajPrzezbrojenie()">+</button><br/>
             <span id="suma-przezbrojenia"></span>
-            <button class="plus" onclick="dodajPrzezbrojenie()">+</button>
           </th>
           <td class="przezbrojenia-row">
           </td>
         </tr>
         <tr>
           <th style="width: 20%">
-            Brak obsady<br/>
+            Brak obsady
+            <button class="plus" onclick="dodajBrakObsady()">+</button><br/>
             <span id="suma-brak-obsady"></span>
-            <button class="plus" onclick="dodajBrakObsady()">+</button>
           </th>
           <td class="brak-obsady-row">
           </td>
@@ -36,7 +50,7 @@
         <tr>
           <th colspan="2">
             Odpisy
-            <button class="plus" onclick="dodajOdpis()">+</button>
+            <button class="plus" style="margin-right: 2px" onclick="dodajOdpis()">+</button>
             <span id="suma-odpisy"></span>
           </th>
         </tr>
@@ -63,6 +77,7 @@
       <tbody id="table-body"></tbody>
     </table>
 
+    <!-- STOPKA -->
     <div class="toolbar">
       <div class="controls">
         <label for="norma">Norma:</label>
@@ -76,7 +91,6 @@
         </select>
       </div>
     </div>
-
     <div id="output"></div>
     <div id="warning" style="margin-top: 0"></div>
   </div>
