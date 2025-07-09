@@ -22,7 +22,18 @@
       </div>
 
       <div class="info-prawa">
-        <div id="zmiana">Zmiana II</div>
+        <div id="zmiana"></div>
+        <select id="linia" style="width:70px; margin:0 0 0 3rem; text-align:center">
+          <option value="" disabled>Wybierz</option>
+          <option value="MA-1">MA-1</option>
+          <option value="MA-5">MA-5</option>
+          <option value="MA-7">MA-7</option>
+          <option value="MA-8" selected>MA-8</option>
+          <option value="MA-12">MA-12</option>
+          <option value="MA-16">MA-16</option>
+          <option value="MA-17">MA-17</option>
+          <option value="MA-20">MA-20</option>
+        </select>
       </div>
     </div>
 
@@ -62,7 +73,7 @@
       <thead>
         <tr>
           <th width="25%">
-            Index
+            Indeks
             <button class="plus" onclick="dodajIndex()">+</button>
           </th>
           <th width="10%">Ile na warstwę</th>
@@ -81,7 +92,7 @@
     <div class="toolbar">
       <div class="controls">
         <label for="norma">Norma:</label>
-        <select id="norma" style="width:50% !important">
+        <select id="norma" style="width:60px">
           <option value="" disabled>Wybierz</option>
           <option value="550">550</option>
           <option value="560" selected>560</option>
@@ -90,9 +101,11 @@
           <option value="630">630</option>
         </select>
       </div>
+      <button id="print-button" class="plus" onclick="otworzModal()">🖨️</button>
     </div>
     <div id="output"></div>
-    <div id="warning" style="margin-top: 0"></div>
+    <div id="warning" style="margin: 0"></div>
+    <h6>made by Kamil J.</h6>
   </div>
 </body>
 </html>
