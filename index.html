@@ -8,6 +8,12 @@
   <script src="script.js"></script>
 </head>
 <body>
+  <div class="container" style="margin-bottom:-5rem">
+    <div class="naglowek-flex">
+      <a href="index.html">KALKULATOR</a>
+      <a href="stats.html">STATYSTYKI</a>
+    </div>
+  </div>
   <div class="container">
     <!-- NAGŁÓWEK -->
     <div class="naglowek-flex">
@@ -90,7 +96,7 @@
 
     <!-- STOPKA -->
     <div class="toolbar">
-      <div class="controls">
+      <div style="width:15%">
         <label for="norma">Norma:</label>
         <select id="norma" style="width:60px">
           <option value="" disabled>Wybierz</option>
@@ -101,11 +107,16 @@
           <option value="630">630</option>
         </select>
       </div>
-      <button id="print-button" class="plus" onclick="otworzModal()">🖨️</button>
+      <div style="max-width:70%">
+        <div id="output"></div>
+        <div id="warning" style="margin: 0"></div>
+      </div>
+      <div style="width:15%;text-align:right">
+        <button id="print-button" class="emote-button" onclick="otworzModal()">🖨️</button>
+      </div>
     </div>
-    <div id="output"></div>
-    <div id="warning" style="margin: 0"></div>
     <h6>made by Kamil J.</h6>
   </div>
+
 </body>
 </html>
