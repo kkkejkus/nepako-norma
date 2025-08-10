@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Statystyki produkcji</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script2.js"></script>
+</head>
+<body>
+  <div class="container" style="margin-bottom:-5rem">
+    <div class="naglowek-flex">
+      <a href="index.html">KALKULATOR</a>
+      <a href="stats.html">STATYSTYKI</a>
+    </div>
+  </div>
+  <div class="container">
+  <div class="stats-naglowek">
+    <div class="naglowek-info">
+      <div class="input-group">
+        <label for="date">Data:</label>
+        <input type="date" id="date" />
+      </div>
+
+      <div class="input-group">
+        <label for="line">Linia:</label>
+        <select id="line">
+          <option value="" disabled>Wybierz</option>
+          <option value="MA-1">MA-1</option>
+          <option value="MA-5">MA-5</option>
+          <option value="MA-7">MA-7</option>
+          <option value="MA-8" selected>MA-8</option>
+          <option value="MA-12">MA-12</option>
+          <option value="MA-16">MA-16</option>
+          <option value="MA-17">MA-17</option>
+          <option value="MA-20">MA-20</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="shift">Zmiana:</label>
+        <select id="shift">
+          <option value="" disabled>Wybierz</option>
+          <option value="I">I</option>
+          <option value="II">II</option>
+          <option value="III" selected>III</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="naglowek-info">
+      <label for="mode" style="margin-top: 14px">Wyniki z danego:</label>
+      <select id="mode" style="margin: 12px -4px 0 -4px">
+        <option value="" disabled>Wybierz</option>
+        <option value="day">dnia</option>
+        <option value="week">tygodnia</option>
+        <option value="month">miesiąca</option>
+      </select>
+      <button class="emote-button" style="margin: 8px 0 0 -4px" onclick="pokazDane()">🔍</button>
+      <label style="margin: 14px 0 0 -10px"><i>Kliknij, aby wyszukać</i></label>
+    </div>
+  </div>
+
+    <div id="wyniki">
+      <h2 id="info-wyniki"></h2>
+      <div id="progress-bar">
+        <p id="progress-text">0%</p>
+      </div>
+      <div class="progress-info">
+        <span id="info-zrobione"></span>
+        <span id="info-wymagane" style="float: right;"></span>
+      </div>
+      <div id="szczegoly" class="flex-wrap" style="display: none; gap: 1rem"></div>
+      <div id="wyniki-daty" style="display: none"></div>
+    </div>
+    <h6>made by Kamil J.</h6>
+  </div>
+</body>
+</html>
