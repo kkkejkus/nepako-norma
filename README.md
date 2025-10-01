@@ -1,11 +1,7 @@
 <div align="center">
-
 # 🛠️ nepako-norma
 Lekki, przeglądarkowy kalkulator norm produkcyjnych + moduł raportowania i statystyk.
-
-<br/>
-<sub><b>Status:</b> wersja <code>v1.4</code> (prawdopodobnie ostatnia) – projekt uznany za zakończony, dalszy rozwój nieplanowany.</sub>
-
+<sub><b>Status:</b> wersja <code>v1.4</code> – projekt uznany za zakończony, dalszy rozwój nieplanowany.</sub>
 </div>
 
 ## ✨ Co robi aplikacja?
@@ -15,7 +11,7 @@ Lekki, przeglądarkowy kalkulator norm produkcyjnych + moduł raportowania i sta
 4. Zapisuje dane (obsada, produkty, przestoje, braki) do bazy (Supabase) – potem można je przeglądać w zakładce STATYSTYKI (widoki: dzień / tydzień / miesiąc).
 5. Wyświetla zagregowane statystyki: wykonano vs wymagane, procent realizacji, zakres dat, najczęstsze przestoje, udział braków, obsadę.
 
-## 🧩 Najważniejsze funkcje (skrót)
+## 🧩 Najważniejsze funkcje
 - Dodawanie indeksów z automatycznym sumowaniem braków i ich wag.
 - Obsługa maksymalnych limitów (np. 7 indeksów, 6 przezbrojeń, 4 pozycje braków obsady, 11 odpisów dodatkowych).
 - Wariant responsywny nagłówków tabel przy mniejszych szerokościach okna.
@@ -34,7 +30,7 @@ script2.js     – logika pobierania i agregacji statystyk
 README.md      – dokumentacja
 ```
 
-## 🔢 Algorytm liczenia (skrót logiki)
+## 🔢 Algorytm liczenia
 1. Suma braków na wiersz = suma sztuk NOK + wersja ważona (wagi z `wagi = { krzyzak, przegub, tulipan, pion }`).
 2. Norma efektywna pomniejszana o:
 	- przestoje przezbrojeń (minuty × mnożnik normy 1.3 lub 1.5 przy normie ≥ 600),
@@ -72,12 +68,6 @@ Używany jest Supabase REST API (fetch). Dane trafiają do następujących tabel
 1. Sklonuj repo lub pobierz ZIP.
 2. Otwórz `index.html` w przeglądarce (wystarczy plik lokalny – brak bundlera).
 3. (Opcjonalnie) uruchom prosty serwer statyczny, aby uniknąć problemów z CORS w przyszłych rozszerzeniach.
-
-## 🔧 Dostosowywanie
-- Wagi braków: edytuj obiekt `wagi` w `script.js`.
-- Limity elementów (indeksy / przezbrojenia / odpisy): warunki w funkcjach `dodajIndex`, `dodajPrzezbrojenie`, `dodajOdpis`.
-- Kategorie braków: sekcja w funkcji `otworzModal()` (tablice `kategorieUniwersalne`, `kategorieSpecyficzne`).
-- Styl raportu: selektory `.print-table` w `style.css`.
 
 ## 🛡️ Znane ograniczenia / uwagi
 - Brak walidacji unikalności indeksów (można dodać duplikaty).
