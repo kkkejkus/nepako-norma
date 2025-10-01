@@ -1,7 +1,9 @@
 <div align="center">
+	
 # 🛠️ nepako-norma
 Lekki, przeglądarkowy kalkulator norm produkcyjnych + moduł raportowania i statystyk.
-<sub><b>Status:</b> wersja <code>v1.4</code> – projekt uznany za zakończony, dalszy rozwój nieplanowany.</sub>
+
+<sub><b>Status:</b> <code>v1.4</code> – projekt uznany za zakończony, dalszy rozwój nieplanowany.</sub>
 </div>
 
 ## ✨ Co robi aplikacja?
